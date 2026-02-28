@@ -1,0 +1,30 @@
+<h1>Quiz Result</h1>
+<h2>Your Score: {{ score }} / {{ total }}</h2>
+
+<hr>
+
+{% for item in results %}
+    <h3>{{ forloop.counter }}. {{ item.question.text }}</h3>
+
+    {% if item.selected %}
+        {% if item.selected == item.correct %}
+            <p style="color:green;">
+                Your Answer: {{ item.selected.text }} ✅ (Correct)
+            </p>
+        {% else %}
+            <p style="color:red;">
+                Your Answer: {{ item.selected.text }} ❌ (Wrong)
+            </p>
+            <p style="color:green;">
+                Correct Answer: {{ item.correct.text }}
+            </p>
+        {% endif %}
+    {% else %}
+        <p style="color:red;">Not Answered ❌</p>
+        <p style="color:green;">
+            Correct Answer: {{ item.correct.text }}
+        </p>
+    {% endif %}
+
+    <hr>
+{% endfor %}

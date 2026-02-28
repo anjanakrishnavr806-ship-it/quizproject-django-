@@ -1,0 +1,46 @@
+<h1>Quiz</h1>
+
+<p><strong>Time Left: <span id="timer">30</span> seconds</strong></p>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% for question in questions %}
+        <h3>Question {{ forloop.counter }}: {{ question.text }}</h3>
+
+        {% for choice in question.choice_set.all %}
+            <label>
+                <input type="radio"
+                       name="question_{{ question.id }}"
+                       value="{{ choice.id }}">
+                {{ choice.text }}
+            </label>
+            <br>
+        {% endfor %}
+        <br>
+    {% endfor %}
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    let timeLeft = 30;
+    const timerDisplay = document.getElementById("timer");
+    const form = document.querySelector("form");
+
+    const countdown = setInterval(function () {
+
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            form.submit();
+        } else {
+            timerDisplay.textContent = timeLeft;
+            timeLeft--;
+        }
+
+    }, 1000);
+
+});
+</script>

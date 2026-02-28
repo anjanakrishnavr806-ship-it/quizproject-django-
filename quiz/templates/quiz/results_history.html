@@ -1,0 +1,9 @@
+<h1>Your Quiz History</h1>
+<ul>
+  {% for r in results %}
+    <li>Score: {{ r.score }}</li>
+  {% empty %}
+    <li>No results yet!</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'quiz' %}">Take Quiz Again</a>
